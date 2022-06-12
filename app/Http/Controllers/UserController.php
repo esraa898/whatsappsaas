@@ -16,18 +16,19 @@ class UserController extends Controller
         $packageID = $request->package_id;
 
         $company = User::find($id);
-       
+
         if($company->package_id == null){
             $company->package_id = $packageID;
+            $company->subscribeTime = date("Y-m-d",time());
             $company->save();
         }
 
         // $data = Package::where('id',$packageID)->first();
-        
+
         // return view("home",compact('data'));
 
         return 'assigned';
-        
+
     }
     /**
      * Display a listing of the resource.
@@ -60,7 +61,7 @@ class UserController extends Controller
         //
         $status="out of service";
         $packageID = $request->package_id;
-      
+
         User::create([
             'username'=>$request->username,
             'email'=>$request->email,
@@ -111,7 +112,7 @@ class UserController extends Controller
         //
         $status="out of service";
         $packageID = $request->package_id;
-      
+
         $user = User::find($id);
         $user->username = $request->username;
         $user->email = $request->email;
