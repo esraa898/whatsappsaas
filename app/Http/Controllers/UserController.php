@@ -19,9 +19,18 @@ class UserController extends Controller
         if($company->package_id == null){
 
             $company->package_id = $packageID;
+            $company->subscribeTime = date("Y-m-d",time());
             $company->save();
         }
-        return "assigned";
+
+
+        // $data = Package::where('id',$packageID)->first();
+
+        // return view("home",compact('data'));
+
+        return 'assigned';
+
+
     }
     public function sendSubscribeNotify(){
     $id=Auth::user()->id;

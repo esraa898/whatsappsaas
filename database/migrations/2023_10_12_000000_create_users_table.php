@@ -27,11 +27,12 @@ class CreateUsersTable extends Migration
             $table->string('api_key');
             $table->integer('chunk_blast');
             $table->string('role')->nullable();
+            $table->string('subscribeTime')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
     }
-    
+
 
     /**
      * Reverse the migrations.

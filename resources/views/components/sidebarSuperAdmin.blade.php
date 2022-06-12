@@ -5,7 +5,7 @@
             <a href="{{route('dashboard')}}" class="logo-icon"><span class="logo-text">MPWA</span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="/">
-                    <img src="{{asset('images/avatars/avatar2.png')}}">
+                    <img src="{{asset('images/avatars/avatar2.png')}}" alt="">
                     <span class="activity-indicator"></span>
                     <span class="user-info-text">{{ Auth::user()->username}}<br></span>
                 </a>

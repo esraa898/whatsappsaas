@@ -14,12 +14,15 @@ class Kernel extends ConsoleKernel
      * @return void
      */
     protected $commands = [
-        Commands\ScheduleCron::class
+        Commands\ScheduleCron::class,
+     Commands\timeCommands::class,
+
     ];
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('schedule:cron')->everyFiveMinutes();
         $schedule->command('schedule:blast')->everyMinute();
+        $schedule->command('time:write')->everyMinute();
     }
 
     /**
