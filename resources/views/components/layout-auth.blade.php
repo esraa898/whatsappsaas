@@ -36,7 +36,7 @@
 
 </body>
 
-    <script src="{{asset('plugins/jquery/jquery-3.5.1.min.js')}}"></script>
+<script src="{{asset('plugins/jquery/jquery-3.5.1.min.js')}}"></script>
 <script src="{{asset('plugins/bootstrap/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('plugins/perfectscroll/perfect-scrollbar.min.js')}}"></script>
 <script src="{{asset('plugins/pace/pace.min.js')}}"></script>

@@ -8,20 +8,53 @@
                     @slot('type',session('alert')['type'])
                     @slot('msg',session('alert')['msg'])
                 </x-alert>
-             @endif
-             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
+                @endif
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 <div class="row">
-                    <div class="col-xl-6">
+            @if(!(auth()->user()->role == "admin"))
+           
+                @if($user->package == null)
+                <div class="col-xl-4">
+                    <div class="card widget widget-stats bg-danger">
+                        <div class="card-body">
+                            
+                            <div class="widget-stats-container d-flex">
+                                <h5 class="text-white">Un Subscribed</h5>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @else
+                <div class="col-xl-4">
+                    <div class="card widget widget-stats bg-success">
+                        <div class="card-body">
+                            <div class="widget-stats-container text-center d-flex-center">
+                                <h5 class="text-white">Subscribed</h5>
+                            
+                            
+                                <span class="text-white" id="subscribedPackageName">{{$user->package->name}}</span>
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endif
+            @endif
+                
+
+                    <div class="col-xl-4">
                         <div class="card widget widget-stats">
                             <div class="card-body">
+
                                 <div class="widget-stats-container d-flex">
                                     <div class="widget-stats-icon widget-stats-icon-primary">
                                         <i class="material-icons-outlined">contacts</i>
@@ -31,12 +64,11 @@
                                         <span class="widget-stats-amount">{{ Auth::user()->contacts()->count()}}</span>
     
                                     </div>
-    
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-6">
+                    <div class="col-xl-4">
                         <div class="card widget widget-stats">
                             <div class="card-body">
                                 <div class="widget-stats-container d-flex">
@@ -74,6 +106,7 @@
                     </div> --}}
                 </div>
                 <div class="row">
+                    @if($user->package == null)
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
@@ -89,14 +122,15 @@
                                     <tbody>
                                         @foreach($packages as $package)
                                         <tr>
-                                            <td>{{$package->name}}</td>
+                                            <td >{{$package->name}}</td>
                                             <td>{{$package->price}} $</td>
                                             <td>{{$package->description}}</td>
                                             <td>{{$package->plan_info}}</td>
                                             <td>
                                                 <div class="d-flex justify-content-start">
                                                     <form action="" method="post">
-                                                        <button type="button" id="subscribe" class="btn btn-danger btn-success w-25"><i class="material-icons" id="addIcon">add</i></button>
+                                                        @csrf
+                                                        <button type="button" data-name="{{$package->name}}"  data-id="{{$package->id}}" class="btn btn-danger btn-success w-25 subscribe"><i class="material-icons" id="addIcon">add</i></button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -107,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-                
+                    @endif
                     <div class="col-xl-12">
                         <div class="card">
                             <div class="card-body">
@@ -129,20 +163,19 @@
                                         <td>
                                             <form action="" method="post">
                                                 @csrf
-                                                <input type="text" id="webhook" class="form-control form-control-solid-bordered" data-id="{{$number['body']}}" name="" value="{{$number['webhook']}}" id="">
+                                                <input type="text" id="webhook" class="form-control form-control-solid-bordered" data-id="{{$number['body']}}" name="" value="{{$number['webhook']}}">
                                             </form>
                                         </td>
                                         <td>{{$number['messages_sent']}}</td>
                                         <td><span class="badge badge-{{ $number['status'] == 'Connected' ? 'success' : 'danger'}}">{{$number['status']}}</span></td>
                                         <td>
                                             <div class="d-flex justify-content-center">
-
                                                 <a href="{{route('scan',$number->body)}}" class="btn btn-warning "  style="font-size: 10px;"><i class="material-icons">qr_code</i></a>
                                                 <form action="{{route('deleteDevice')}}" method="POST">
                                                     @method('delete')
                                                     @csrf
                                                     <input name="deviceId" type="hidden" value="{{$number['id']}}">
-                                                    <button type="submit" name="delete" class="btn btn-danger "><i class="material-icons">delete_outline</i></button>
+                                                    <button type="submit" name="delete" class="btn btn-danger"><i class="material-icons">delete_outline</i></button>
                                                 </form>
                                             </div>
 
@@ -186,24 +219,29 @@
     </div>
     <script>
 
-        $(document).on('click',('#subscribe'),function(e){
+        $(document).on('click','.subscribe',function(e){
+           
+            var packageId = $(this).data('id');
+            var PackageName = $(this).data('name');
+            console.log(packageId);
+            console.log(PackageName);
+            
             e.preventDefault();
+
             $.ajaxSetup({
                 headers:{
-                    'X-CSRF-Token':$('meta[name="_token"]').attr('content')
+                    'X-CSRF-Token':$('meta[name="csrf-token"]').attr('content')
                 }
             });
             $.ajax({
                 type:"post",
                 url:"{{route('assignPackageToCompany',Auth::user()->id)}}",
                 data:{
-                    'package_id':"{{$package->id}}"
+                    'package_id':packageId ? packageId : null
                 },
                 success:function(res){
-                    $('#subscribe').removeClass('btn-danger');
-                    $('#subscribe').addClass('btn-success');
-                    $('#addIcon').html('done');
                     console.log(res);
+                  window,location.href = "/home"
                 },
                 error:function(err){
                     console.log(err);
@@ -212,8 +250,8 @@
         });
 
 
-
-        var typingTimer;                //timer identifier
+        //timer identifier
+        var typingTimer;                
         var doneTypingInterval = 1000;
         $('#webhook').keydown(function(){
             clearTimeout(typingTimer);
@@ -231,7 +269,7 @@
                         
                         },
                         error : (err) => {
-                                console.log(err);
+                            console.log(err);
                         }
                     })
             }, doneTypingInterval);

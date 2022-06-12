@@ -5,19 +5,29 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\addCompanyRequest;
 use App\Models\User;
+use App\Models\Package;
+use Illuminate\Support\Facades\Auth;
 class UserController extends Controller
 {
 
     public function assignPackageToCompany(Request $request,$id){
+
+
         $packageID = $request->package_id;
+
         $company = User::find($id);
        
         if($company->package_id == null){
-            
             $company->package_id = $packageID;
             $company->save();
         }
-        return "assigned";
+
+        // $data = Package::where('id',$packageID)->first();
+        
+        // return view("home",compact('data'));
+
+        return 'assigned';
+        
     }
     /**
      * Display a listing of the resource.

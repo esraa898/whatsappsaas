@@ -19,5 +19,6 @@ class LogoutController extends Controller
         session()->flush();
         Auth::logout();
         return back();
+        
     }
 }

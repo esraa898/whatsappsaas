@@ -47,6 +47,8 @@ Route::middleware('auth')->group(function (){
     // route to delete package
     Route::delete('/package/{id}',[PackageController::class,'destroy'])->name('deletePackage');
 
+
+  
     
 
 
