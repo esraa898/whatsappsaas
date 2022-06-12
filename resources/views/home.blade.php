@@ -18,34 +18,38 @@
                         </ul>
                     </div>
                 @endif
-                 <div class="row">
+                <div class="row">
             @if(!(auth()->user()->role == "admin"))
-            @if($user->package == null)
-            <div class="col-xl-4">
-                <div class="card widget widget-stats bg-danger">
-                    <div class="card-body">
-                        
-                        <div class="widget-stats-container d-flex">
-                            <h5 class="text-white">Un Subscribed</h5>
-                           
+           
+                @if($user->package == null)
+                <div class="col-xl-4">
+                    <div class="card widget widget-stats bg-danger">
+                        <div class="card-body">
+                            
+                            <div class="widget-stats-container d-flex">
+                                <h5 class="text-white">Un Subscribed</h5>
+                            
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            @else
-            <div class="col-xl-4">
-                <div class="card widget widget-stats bg-success">
-                    <div class="card-body">
-                        <div class="widget-stats-container text-center d-flex-center">
-                            <h5 class="text-white">Subscribed</h5>
-                            <span class="text-white" id="subscribedPackageName">{{$user->package->name}}</span>
+                @else
+                <div class="col-xl-4">
+                    <div class="card widget widget-stats bg-success">
+                        <div class="card-body">
+                            <div class="widget-stats-container text-center d-flex-center">
+                                <h5 class="text-white">Subscribed</h5>
+                            
+                            
+                                <span class="text-white" id="subscribedPackageName">{{$user->package->name}}</span>
+                               
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                @endif
             @endif
-            @endif
-               
+                
 
                     <div class="col-xl-4">
                         <div class="card widget widget-stats">

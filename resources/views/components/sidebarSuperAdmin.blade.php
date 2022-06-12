@@ -2,7 +2,7 @@
 <div class="app align-content-stretch d-flex flex-wrap">
     <div class="app-sidebar">
         <div class="logo">
-            <a href="{{route('home')}}" class="logo-icon"><span class="logo-text">MPWA</span></a>
+            <a href="{{route('dashboard')}}" class="logo-icon"><span class="logo-text">MPWA</span></a>
             <div class="sidebar-user-switcher user-activity-online">
                 <a href="/">
                     <img src="{{asset('images/avatars/avatar2.png')}}">
@@ -27,9 +27,9 @@
                 </li>
                 <li class="{{request()->is('tag') ? 'active-page' : ''}}">
                     <a href="{{route('tag')}}"><i class="material-icons-two-tone">contacts</i>{{__('system.package')}}</a>
-                   
+
                 </li>
-            
+
                 {{-- <li class="{{request()->is('schedule') ? 'active-page' : ''}}">
                     <a href="{{route('scheduleMessage')}}" class=""><i class="material-icons-two-tone">schedule</i>Schedule Message</a>
                 </li> --}}
@@ -42,7 +42,7 @@
                 <li class="{{request()->is('settings') ? 'active-page' : ''}}">
                     <a href="{{route('settings')}}"><i class="material-icons-two-tone">settings</i>{{__('system.setting')}}</a>
                 </li>
-               
+
 
             </ul>
         </div>
@@ -74,7 +74,7 @@
                     </div>
                     <div class="d-flex">
                         <ul class="navbar-nav">
-                          
+
 
                             <li class="nav-item hidden-on-mobile">
                                 <a class="nav-link nav-notifications-toggle" id="notificationsDropDown" href="#" data-bs-toggle="dropdown">action</a>

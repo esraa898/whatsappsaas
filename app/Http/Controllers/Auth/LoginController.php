@@ -15,6 +15,7 @@ class LoginController extends Controller
     }
 
     public function store(Request $request){
+        
        $user = User::where('username',$request->username)->first();
 
      if(Auth::attempt($request->only(['username','password']))){

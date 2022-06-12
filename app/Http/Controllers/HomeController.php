@@ -6,7 +6,7 @@ use App\Models\Number;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Package;
-use App\Models\Company;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
@@ -16,18 +16,19 @@ class HomeController extends Controller
 
         $packages = Package::all();
         $companies = User::where('role',null)->get();
-
+        
 
         return view('super_admin',[
             'companies'=>$companies,
             'packages' => $packages
         ]);
     }
-
+    
     public function index(){
-        // $user = Auth::user()->package_id;
+       
+
         $user = User::where('id',Auth::user()->id)->with('package:id,name')->first();
-        // dd($user);
+     
         $packages = Package::all();
         $numbers = Number::whereStatus('Connected')->get();
         return view('home',[
@@ -70,6 +71,6 @@ class HomeController extends Controller
         $n->webhook = $request->webhook;
         $n->save();
         return true;
-    }
+    } 
 
 }
