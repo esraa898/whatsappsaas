@@ -6,7 +6,7 @@ use App\Models\Number;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Package;
-use App\Models\Company;
+
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Auth;
@@ -25,11 +25,16 @@ class HomeController extends Controller
     }
     
     public function index(){
+       
+
+        $user = User::where('id',Auth::user()->id)->with('package:id,name')->first();
+     
         $packages = Package::all();
         $numbers = Number::whereStatus('Connected')->get();
         return view('home',[
             'numbers' => Auth::user()->numbers()->get(),
-            'packages'=>$packages
+            'packages'=>$packages,
+            'user'=>$user
         ]);
     }
 

@@ -283,13 +283,13 @@
                     if(key == 'name'){
                         $('#companyNameSpan').html(value);
                         $('#companyName').on('change',function(){
-                                if($('#companyName').val()){
-                                    $('#companyNameSpan').hide();
-                                }else{
-                                    $('#companyNameSpan').html(value);
-                                    $('#companyNameSpan').show();
-                                }
-                            });
+                            if($('#companyName').val()){
+                                $('#companyNameSpan').hide();
+                            }else{
+                                $('#companyNameSpan').html(value);
+                                $('#companyNameSpan').show();
+                            }
+                        });
                                 
                     }
                     if(key == 'balance'){
@@ -300,7 +300,7 @@
                             }else{
                                 $('#companyBalanceSpan').html(value);
                                 $('#companyBalanceSpan').show();
-                                }
+                            }
                         });
                     }
                     if(key == 'email'){
