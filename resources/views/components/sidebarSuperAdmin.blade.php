@@ -17,7 +17,7 @@
                     Apps
                 </li>
                 <li class="{{request()->is('home') ? 'active-page' : ''}}">
-                    <a href="{{route('home')}}" class=""><i class="material-icons-two-tone">dashboard</i>{{__('system.home')}}</a>
+                    <a href="{{route('dashboard')}}" class=""><i class="material-icons-two-tone">dashboard</i>{{__('system.home')}}</a>
                 </li>
                 <li class="{{request()->is('file-manager') ? 'active-page' : ''}}">
                     <a href="{{route('file-manager')}}" class=""><i class="material-icons-two-tone">folder</i>{{__('File Manager')}}</a>

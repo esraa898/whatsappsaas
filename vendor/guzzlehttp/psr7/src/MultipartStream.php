@@ -68,6 +68,9 @@ final class MultipartStream implements StreamInterface
         $stream = new AppendStream();
 
         foreach ($elements as $element) {
+            if (!is_array($element)) {
+                throw new \UnexpectedValueException("An array is expected");
+            }
             $this->addElement($stream, $element);
         }
 
@@ -89,7 +92,7 @@ final class MultipartStream implements StreamInterface
 
         if (empty($element['filename'])) {
             $uri = $element['contents']->getMetadata('uri');
-            if (substr($uri, 0, 6) !== 'php://') {
+            if ($uri && \is_string($uri) && \substr($uri, 0, 6) !== 'php://' && \substr($uri, 0, 7) !== 'data://') {
                 $element['filename'] = $uri;
             }
         }

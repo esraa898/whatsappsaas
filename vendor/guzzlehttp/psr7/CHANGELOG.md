@@ -7,6 +7,51 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## 2.3.0 - 2022-06-09
+
+### Fixed
+
+- Added `Header::splitList()`
+- Added `Utils::tryGetContents`
+- Improved `Stream::getContents()`
+- Updated mimetype mappings
+
+## 2.2.2 - 2022-06-08
+
+### Fixed
+
+- Fix `Message::parseRequestUri()` for numeric headers
+- Re-wrap exceptions thrown in `fread` into runtime exceptions
+- Throw an exception when multipart options is misformatted
+
+## 2.2.1 - 2022-03-20
+
+### Fixed
+
+- Correct header value validation
+
+## 2.2.0 - 2022-03-20
+
+### Added
+
+- A more compressive list of mime types
+- Add JsonSerializable to Uri
+- Missing return types
+
+### Fixed
+
+- Bug MultipartStream no `uri` metadata
+- Bug MultipartStream with filename for `data://` streams
+- Fixed new line handling in MultipartStream
+- Reduced RAM usage when copying streams
+- Updated parsing in `Header::normalize()`
+
+## 2.1.1 - 2022-03-20
+
+### Fixed
+
+- Validate header values properly
+
 ## 2.1.0 - 2021-10-06
 
 ### Changed
