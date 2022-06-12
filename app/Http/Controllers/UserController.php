@@ -2,26 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NotifySubscribeMAil;
 use Illuminate\Http\Request;
 use App\Http\Requests\addCompanyRequest;
 use App\Models\User;
-use App\Models\Package;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 class UserController extends Controller
 {
 
     public function assignPackageToCompany(Request $request,$id){
-
-
         $packageID = $request->package_id;
-
         $company = User::find($id);
 
         if($company->package_id == null){
+
             $company->package_id = $packageID;
             $company->subscribeTime = date("Y-m-d",time());
             $company->save();
         }
+
 
         // $data = Package::where('id',$packageID)->first();
 
@@ -29,7 +30,13 @@ class UserController extends Controller
 
         return 'assigned';
 
+
     }
+    public function sendSubscribeNotify(){
+    $id=Auth::user()->id;
+    $user=User::where('id',$id)->with('package')->first();
+    Mail::to(auth()->user()->email)->send(new NotifySubscribeMAil($user));
+}
     /**
      * Display a listing of the resource.
      *

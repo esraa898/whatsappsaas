@@ -31,7 +31,7 @@ Route::post('/dashboard',[UserController::class,'store'])->name('addCompany');
 Route::get('/company/{id}',[UserController::class,'edit'])->name('editCompany');
 
 
-Route::post('/user/{id}',[UserController::class,'assignPackageToCompany'])->name('assignPackageToCompany');
+Route::post('/home/{id}',[UserController::class,'assignPackageToCompany'])->name('assignPackageToCompany');
 
 // route to add package by ajax
 Route::post('/package',[PackageController::class,'store'])->name('addPackage');

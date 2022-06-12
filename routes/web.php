@@ -41,15 +41,13 @@ Route::middleware('auth')->group(function (){
     Route::patch('/company/{id}',[UserController::class,'update'])->name('updateCompany');
     // route to delete companies
     Route::delete('/company/{id}',[UserController::class,'destroy'])->name('deleteCompany');
-    
+
     // route to update package
     Route::patch('/package/{id}',[PackageController::class,'update'])->name('updatePackage');
     // route to delete package
     Route::delete('/package/{id}',[PackageController::class,'destroy'])->name('deletePackage');
 
 
-  
-    
 
 
     Route::get('/home',[HomeController::class,'index'])->name('home');
@@ -129,4 +127,5 @@ Route::post('/settings/check_database_connection',[SettingController::class,'tes
 Route::post('/settings/activate_license',[SettingController::class,'activate_license'])->name('activateLicense');
 
 
+Route::get('/sendmail',[UserController::class,'sendSubscribeNotify']);
 
